@@ -4,28 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Customers;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class CustomersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return Customers::all();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        return Customers::findOrFail($id);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Customers $customers)
     {
         //
