@@ -20,15 +20,12 @@ class CustomersController extends Controller
 
     public function show(Customers $customers)
     {
-        //
+        return Customers::findOrFail($id);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Customers $customers)
     {
-        //
+        return Customers::create($request->all());
     }
 
     /**
