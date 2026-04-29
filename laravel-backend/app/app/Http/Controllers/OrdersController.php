@@ -7,41 +7,37 @@ use Illuminate\Http\Request;
 
 class OrdersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return Orders::with('products', 'customer')->get();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $orders = Orders::create([
+            'customer_id' => $request->customer_id,
+            'total_ammount' => $request->total_amount,
+            'status' => $request->status,
+        ]);
+
+        foreach  ($request->products as $p) {
+            $orders->products()->attach($p['product_id'], ['quantity' => $p['quantity']
+            ]);
+        }
+        
+        return $orders->load('products');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Orders $orders)
     {
-        //
+        return Orders::with('products', 'customer')->findOrFail($orders->id);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Orders $orders)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Orders $orders)
     {
         //
