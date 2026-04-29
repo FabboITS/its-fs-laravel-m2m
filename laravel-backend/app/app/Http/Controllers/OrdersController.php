@@ -24,7 +24,7 @@ class OrdersController extends Controller
             $orders->products()->attach($p['product_id'], ['quantity' => $p['quantity']
             ]);
         }
-        
+
         return $orders->load('products');
     }
 
@@ -35,11 +35,24 @@ class OrdersController extends Controller
 
     public function update(Request $request, Orders $orders)
     {
-        //
+        $orders = Orders::findOrFail($id);
+        $orders->update($request->only(['customer_id', 'total_amount', 'status']));
+
+        if ($request->has('products')) {
+            $orders->products()->detach();
+
+            foreach ($request->products as $p) {
+                $orders->products()->attach($p['product_id'], ['quantity' => $p['quantity']
+                ]);
+            }
+        }
+
+        return $orders->load('products');
     }
 
     public function destroy(Orders $orders)
     {
-        //
+        Orders::destroy($orders->id);
+        return response()->json(['message' => 'Order deleted successfully']);
     }
 }
