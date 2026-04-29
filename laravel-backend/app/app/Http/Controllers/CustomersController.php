@@ -28,11 +28,9 @@ class CustomersController extends Controller
         return Customers::create($request->all());
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Customers $customers)
     {
-        //
+        Customer::destroy($customers->id);
+        return response()->json(['message' => 'Customer deleted successfully']);
     }
 }
