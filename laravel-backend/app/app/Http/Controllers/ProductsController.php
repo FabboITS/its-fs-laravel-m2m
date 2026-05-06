@@ -15,14 +15,14 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         $validate = $request->validate([
-            'order_id' => 'required|integer',
-            'products_id' => 'required|integer',
-            'quantity' => 'required|integer',
+            'name' => ['required', 'string'],
+            'price' => ['required', 'integer'],
+            'stock' => ['required', 'integer'],
         ]);
 
-        $products = Products::create($validate);
+        $product = Products::create($validate);
 
-        return response()->json($products, 201);
+        return response()->json($product, 201);
     }
 
     public function show(Products $products)
@@ -33,19 +33,19 @@ class ProductsController extends Controller
     public function update(Request $request, Products $products)
     {
         $validate = $request->validate([
-            'order_id' => 'integer',
-            'products_id' => 'integer',
-            'quantity' => 'integer'
+            'name' => ['string'],
+            'price' => ['integer'],
+            'stock' => ['integer'],
         ]);
 
-        $products = Products::findOrFail($products->id);
         $products->update($validate);
+
         return response()->json($products);
     }
 
-    public function destroy(Products $products)
+    public function destroy(Products $product)
     {
-        Products::destroy($products->id);
+        $product->delete();
         return response()->json(['message' => 'Product deleted successfully'], 204);
     }
 }
