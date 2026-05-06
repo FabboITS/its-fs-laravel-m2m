@@ -15,22 +15,36 @@ class CustomersController extends Controller
 
     public function store(Request $request)
     {
-        return Customers::findOrFail($id);
+        $validate = $request->validate([
+            'email' => ['required', 'email', Rule::unique('customers')],
+            'name' => 'required',
+        ]);
+
+        $customers = Customers::create($validate);
+
+        return response()->json($customers, 201);
     }
 
     public function show(Customers $customers)
     {
-        return Customers::findOrFail($id);
+        return $customers->load(['orders', 'products']);
     }
 
     public function update(Request $request, Customers $customers)
     {
-        return Customers::create($request->all());
+        $validate = $request->validate([
+            'email' => ['required', 'email', Rule::unique('customers')->ignore($customers->id)],
+            'name' => 'required',
+        ]);
+
+        $customers->update($validate);
+
+        return response()->json($customers);
     }
 
     public function destroy(Customers $customers)
     {
-        Customer::destroy($customers->id);
-        return response()->json(['message' => 'Customer deleted successfully']);
+       $customers->delete();
+       return response()->json(['message' => 'Customer deleted successfully']);
     }
 }

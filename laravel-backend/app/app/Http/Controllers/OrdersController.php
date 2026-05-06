@@ -14,18 +14,15 @@ class OrdersController extends Controller
 
     public function store(Request $request)
     {
-        $orders = Orders::create([
-            'customer_id' => $request->customer_id,
-            'total_ammount' => $request->total_amount,
-            'status' => $request->status,
+        $validate = $request->validate([
+            'customer_id' => 'required|exists:customers,id',
+            'total_amount' => 'required|numeric',
+            'status' => 'required'
         ]);
 
-        foreach  ($request->products as $p) {
-            $orders->products()->attach($p['product_id'], ['quantity' => $p['quantity']
-            ]);
-        }
+        $orders = Orders::create($validate);
 
-        return $orders->load('products');
+        return response()->json($orders, 201);
     }
 
     public function show(Orders $orders)
@@ -35,24 +32,20 @@ class OrdersController extends Controller
 
     public function update(Request $request, Orders $orders)
     {
-        $orders = Orders::findOrFail($id);
-        $orders->update($request->only(['customer_id', 'total_amount', 'status']));
+        $validate = $request->validate([
+            'customer_id' => 'exists:customers,id',
+            'total_amount' => 'numeric',
+            'status' => ''
+        ]);
 
-        if ($request->has('products')) {
-            $orders->products()->detach();
+        $orders->update($validate);
 
-            foreach ($request->products as $p) {
-                $orders->products()->attach($p['product_id'], ['quantity' => $p['quantity']
-                ]);
-            }
-        }
-
-        return $orders->load('products');
+        return response()->json($orders);
     }
 
     public function destroy(Orders $orders)
     {
-        Orders::destroy($orders->id);
-        return response()->json(['message' => 'Order deleted successfully']);
+        $orders->delete();
+        return response()->json(['message' => 'Order deleted successfully', 204]);
     }
 }
