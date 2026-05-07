@@ -7,26 +7,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&family=Nunito+Sans:wght@300;400;600&display=swap"
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Margarine&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap"
     />
     <link rel="stylesheet" href="style.css" />
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Margarine&display=swap');
-    </style>
   </head>
   <body>
-    <!-- Sidebar Nav -->
-    <nav class="sidebar" id="sidebar">
+    <aside class="sidebar" id="sidebar">
       <div class="sidebar-brand">
-        <div class="brand-icon">
+        <div class="brand-logo">
           <svg
             width="20"
             height="20"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            stroke-width="2"
+            stroke-width="2.2"
           >
             <polygon points="12 2 2 7 12 12 22 7 12 2" />
             <polyline points="2 17 12 22 22 17" />
@@ -36,111 +32,149 @@
         <span class="brand-name">Gestionale</span>
       </div>
 
-      <div class="nav-section-label">Entità</div>
-      <ul class="nav-links">
-        <li>
-          <button
-            class="nav-btn active"
-            data-section="customers"
-            onclick="showSection('customers')"
-          >
-            <svg
-              width="17"
-              height="17"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
+      <nav class="sidebar-nav">
+        <span class="nav-group-label">Sezioni</span>
+        <ul class="nav-list">
+          <li>
+            <button
+              class="nav-item active"
+              data-section="customers"
+              onclick="switchSection('customers')"
             >
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-              <circle cx="9" cy="7" r="4" />
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-            </svg>
-            <span>Clienti</span>
-            <span class="nav-badge" id="badge-customers">—</span>
-          </button>
-        </li>
-        <li>
-          <button
-            class="nav-btn"
-            data-section="products"
-            onclick="showSection('products')"
-          >
-            <svg
-              width="17"
-              height="17"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
+              <svg
+                class="nav-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+              <span>Clienti</span>
+              <span class="nav-count" id="cnt-customers">—</span>
+            </button>
+          </li>
+          <li>
+            <button
+              class="nav-item"
+              data-section="products"
+              onclick="switchSection('products')"
             >
-              <path
-                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
-              />
-            </svg>
-            <span>Prodotti</span>
-            <span class="nav-badge" id="badge-products">—</span>
-          </button>
-        </li>
-        <li>
-          <button
-            class="nav-btn"
-            data-section="orders"
-            onclick="showSection('orders')"
-          >
-            <svg
-              width="17"
-              height="17"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
+              <svg
+                class="nav-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
+                />
+              </svg>
+              <span>Prodotti</span>
+              <span class="nav-count" id="cnt-products">—</span>
+            </button>
+          </li>
+          <li>
+            <button
+              class="nav-item"
+              data-section="orders"
+              onclick="switchSection('orders')"
             >
-              <path d="M9 11l3 3L22 4" />
-              <path
-                d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"
-              />
-            </svg>
-            <span>Ordini</span>
-            <span class="nav-badge" id="badge-orders">—</span>
-          </button>
-        </li>
-      </ul>
+              <svg
+                class="nav-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M9 11l3 3L22 4" />
+                <path
+                  d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"
+                />
+              </svg>
+              <span>Ordini</span>
+              <span class="nav-count" id="cnt-orders">—</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
 
-      <div class="sidebar-footer">
-        <div class="api-status" id="api-status">
-          <span class="status-dot"></span>
-          <span class="status-text">Verifica connessione...</span>
-        </div>
-      </div>
-    </nav>
-
-    <!-- Mobile header -->
-    <header class="mobile-header">
-      <button class="hamburger" id="hamburger" onclick="toggleSidebar()">
-        <span></span><span></span><span></span>
-      </button>
-      <span class="mobile-title">Gestionale</span>
-    </header>
-
-    <!-- Main Content -->
-    <main class="main-content" id="main-content">
-      <!-- CUSTOMERS SECTION -->
-      <section class="section" id="section-customers">
-        <div class="section-header">
-          <div>
-            <h1 class="section-title">Clienti</h1>
-            <p class="section-subtitle">Anagrafica clienti registrati</p>
-          </div>
-          <button class="btn btn-primary" onclick="openCustomerModal()">
+      <div class="sidebar-foot">
+        <button
+          class="theme-toggle"
+          id="theme-toggle"
+          onclick="toggleTheme()"
+          title="Cambia tema"
+        >
+          <span class="theme-icon theme-icon-moon">
             <svg
               width="15"
               height="15"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2.5"
+              stroke-width="2"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          </span>
+          <span class="theme-icon theme-icon-sun">
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+          </span>
+          <span class="theme-label" id="theme-label">Tema scuro</span>
+          <span class="theme-track"><span class="theme-thumb"></span></span>
+        </button>
+        <div class="api-pill" id="api-pill">
+          <span class="api-dot"></span>
+          <span class="api-label">Connessione…</span>
+        </div>
+      </div>
+    </aside>
+
+    <header class="topbar">
+      <button class="burger" id="burger" onclick="toggleSidebar()">
+        <span></span><span></span><span></span>
+      </button>
+      <span class="topbar-title">Gestionale</span>
+    </header>
+
+    <main class="main">
+      <!-- CUSTOMERS -->
+      <section class="page" id="page-customers">
+        <div class="page-head">
+          <div class="page-title-block">
+            <h1 class="page-title">Clienti</h1>
+            <p class="page-sub">Anagrafica e contatti</p>
+          </div>
+          <button class="btn btn-primary" onclick="openCustomerForm()">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
             >
               <line x1="12" y1="5" x2="12" y2="19" />
               <line x1="5" y1="12" x2="19" y2="12" />
@@ -149,12 +183,12 @@
           </button>
         </div>
 
-        <div class="table-wrapper">
-          <div class="table-toolbar">
-            <div class="search-box">
+        <div class="card">
+          <div class="card-toolbar">
+            <div class="search-wrap">
               <svg
-                width="15"
-                height="15"
+                width="14"
+                height="14"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -165,19 +199,18 @@
               </svg>
               <input
                 type="text"
-                id="search-customers"
-                placeholder="Cerca clienti..."
-                oninput="filterTable('customers', this.value)"
+                placeholder="Cerca per nome o email…"
+                oninput="filterRows('customers', this.value)"
               />
             </div>
             <button
-              class="btn btn-ghost btn-icon"
+              class="btn btn-ghost btn-sq"
               onclick="loadCustomers()"
-              title="Aggiorna"
+              title="Ricarica"
             >
               <svg
-                width="15"
-                height="15"
+                width="14"
+                height="14"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -191,29 +224,29 @@
               </svg>
             </button>
           </div>
-          <div class="table-scroll">
-            <table class="data-table">
+          <div class="table-wrap">
+            <table class="tbl">
               <thead>
                 <tr>
-                  <th class="id-col">#</th>
+                  <th class="col-id">#</th>
                   <th>Nome</th>
                   <th>Email</th>
-                  <th>Registrato il</th>
-                  <th class="actions-col">Azioni</th>
+                  <th>Registrato</th>
+                  <th class="col-act">Azioni</th>
                 </tr>
               </thead>
               <tbody id="tbody-customers">
-                <tr class="skeleton-row">
-                  <td colspan="5"><div class="skeleton"></div></td>
+                <tr class="skel-row">
+                  <td colspan="5"><span class="skel"></span></td>
                 </tr>
-                <tr class="skeleton-row">
+                <tr class="skel-row">
                   <td colspan="5">
-                    <div class="skeleton" style="width: 80%"></div>
+                    <span class="skel" style="width: 75%"></span>
                   </td>
                 </tr>
-                <tr class="skeleton-row">
+                <tr class="skel-row">
                   <td colspan="5">
-                    <div class="skeleton" style="width: 60%"></div>
+                    <span class="skel" style="width: 55%"></span>
                   </td>
                 </tr>
               </tbody>
@@ -222,21 +255,20 @@
         </div>
       </section>
 
-      <!-- PRODUCTS SECTION -->
-      <section class="section hidden" id="section-products">
-        <div class="section-header">
-          <div>
-            <h1 class="section-title">Prodotti</h1>
-            <p class="section-subtitle">Catalogo e giacenze magazzino</p>
+      <section class="page hidden" id="page-products">
+        <div class="page-head">
+          <div class="page-title-block">
+            <h1 class="page-title">Prodotti</h1>
+            <p class="page-sub">Catalogo e giacenze</p>
           </div>
-          <button class="btn btn-primary" onclick="openProductModal()">
+          <button class="btn btn-primary" onclick="openProductForm()">
             <svg
-              width="15"
-              height="15"
+              width="14"
+              height="14"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2.5"
+              stroke-width="3"
             >
               <line x1="12" y1="5" x2="12" y2="19" />
               <line x1="5" y1="12" x2="19" y2="12" />
@@ -245,12 +277,12 @@
           </button>
         </div>
 
-        <div class="table-wrapper">
-          <div class="table-toolbar">
-            <div class="search-box">
+        <div class="card">
+          <div class="card-toolbar">
+            <div class="search-wrap">
               <svg
-                width="15"
-                height="15"
+                width="14"
+                height="14"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -261,19 +293,18 @@
               </svg>
               <input
                 type="text"
-                id="search-products"
-                placeholder="Cerca prodotti..."
-                oninput="filterTable('products', this.value)"
+                placeholder="Cerca prodotto…"
+                oninput="filterRows('products', this.value)"
               />
             </div>
             <button
-              class="btn btn-ghost btn-icon"
+              class="btn btn-ghost btn-sq"
               onclick="loadProducts()"
-              title="Aggiorna"
+              title="Ricarica"
             >
               <svg
-                width="15"
-                height="15"
+                width="14"
+                height="14"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -287,29 +318,29 @@
               </svg>
             </button>
           </div>
-          <div class="table-scroll">
-            <table class="data-table">
+          <div class="table-wrap">
+            <table class="tbl">
               <thead>
                 <tr>
-                  <th class="id-col">#</th>
+                  <th class="col-id">#</th>
                   <th>Nome</th>
                   <th>Prezzo</th>
                   <th>Stock</th>
-                  <th class="actions-col">Azioni</th>
+                  <th class="col-act">Azioni</th>
                 </tr>
               </thead>
               <tbody id="tbody-products">
-                <tr class="skeleton-row">
-                  <td colspan="5"><div class="skeleton"></div></td>
+                <tr class="skel-row">
+                  <td colspan="5"><span class="skel"></span></td>
                 </tr>
-                <tr class="skeleton-row">
+                <tr class="skel-row">
                   <td colspan="5">
-                    <div class="skeleton" style="width: 75%"></div>
+                    <span class="skel" style="width: 70%"></span>
                   </td>
                 </tr>
-                <tr class="skeleton-row">
+                <tr class="skel-row">
                   <td colspan="5">
-                    <div class="skeleton" style="width: 55%"></div>
+                    <span class="skel" style="width: 50%"></span>
                   </td>
                 </tr>
               </tbody>
@@ -318,21 +349,21 @@
         </div>
       </section>
 
-      <!-- ORDERS SECTION -->
-      <section class="section hidden" id="section-orders">
-        <div class="section-header">
-          <div>
-            <h1 class="section-title">Ordini</h1>
-            <p class="section-subtitle">Gestione ordini e prodotti associati</p>
+      <!-- ORDERS -->
+      <section class="page hidden" id="page-orders">
+        <div class="page-head">
+          <div class="page-title-block">
+            <h1 class="page-title">Ordini</h1>
+            <p class="page-sub">Gestione ordini e prodotti associati</p>
           </div>
-          <button class="btn btn-primary" onclick="openOrderModal()">
+          <button class="btn btn-primary" onclick="openOrderForm()">
             <svg
-              width="15"
-              height="15"
+              width="14"
+              height="14"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2.5"
+              stroke-width="3"
             >
               <line x1="12" y1="5" x2="12" y2="19" />
               <line x1="5" y1="12" x2="19" y2="12" />
@@ -341,12 +372,12 @@
           </button>
         </div>
 
-        <div class="table-wrapper">
-          <div class="table-toolbar">
-            <div class="search-box">
+        <div class="card">
+          <div class="card-toolbar">
+            <div class="search-wrap">
               <svg
-                width="15"
-                height="15"
+                width="14"
+                height="14"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -357,19 +388,18 @@
               </svg>
               <input
                 type="text"
-                id="search-orders"
-                placeholder="Cerca ordini..."
-                oninput="filterTable('orders', this.value)"
+                placeholder="Cerca ordine…"
+                oninput="filterRows('orders', this.value)"
               />
             </div>
             <button
-              class="btn btn-ghost btn-icon"
+              class="btn btn-ghost btn-sq"
               onclick="loadOrders()"
-              title="Aggiorna"
+              title="Ricarica"
             >
               <svg
-                width="15"
-                height="15"
+                width="14"
+                height="14"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -383,30 +413,30 @@
               </svg>
             </button>
           </div>
-          <div class="table-scroll">
-            <table class="data-table">
+          <div class="table-wrap">
+            <table class="tbl">
               <thead>
                 <tr>
-                  <th class="id-col">#</th>
+                  <th class="col-id">#</th>
                   <th>Cliente</th>
                   <th>Totale</th>
                   <th>Stato</th>
                   <th>Prodotti</th>
-                  <th class="actions-col">Azioni</th>
+                  <th class="col-act">Azioni</th>
                 </tr>
               </thead>
               <tbody id="tbody-orders">
-                <tr class="skeleton-row">
-                  <td colspan="6"><div class="skeleton"></div></td>
+                <tr class="skel-row">
+                  <td colspan="6"><span class="skel"></span></td>
                 </tr>
-                <tr class="skeleton-row">
+                <tr class="skel-row">
                   <td colspan="6">
-                    <div class="skeleton" style="width: 80%"></div>
+                    <span class="skel" style="width: 80%"></span>
                   </td>
                 </tr>
-                <tr class="skeleton-row">
+                <tr class="skel-row">
                   <td colspan="6">
-                    <div class="skeleton" style="width: 65%"></div>
+                    <span class="skel" style="width: 60%"></span>
                   </td>
                 </tr>
               </tbody>
@@ -416,167 +446,200 @@
       </section>
     </main>
 
-    <!-- ========== MODALS ========== -->
-
-    <!-- Customer Modal -->
-    <div class="modal-overlay hidden" id="customer-modal">
-      <div class="modal" role="dialog" aria-modal="true">
-        <div class="modal-header">
-          <h2 class="modal-title" id="customer-modal-title">Nuovo Cliente</h2>
-          <button class="modal-close" onclick="closeModal('customer-modal')">
+    <div class="overlay hidden" id="modal-customer">
+      <div
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-customer-title"
+      >
+        <div class="modal-hd">
+          <h2 class="modal-title" id="modal-customer-title">Nuovo Cliente</h2>
+          <button
+            class="modal-x"
+            onclick="closeModal('modal-customer')"
+            aria-label="Chiudi"
+          >
             <svg
               width="18"
               height="18"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
+              stroke-width="2.5"
             >
               <line x1="18" y1="6" x2="6" y2="18" />
               <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
           </button>
         </div>
-        <div class="modal-body">
-          <input type="hidden" id="customer-id" />
-          <div class="form-group">
-            <label class="form-label" for="customer-name"
-              >Nome <span class="required">*</span></label
+        <div class="modal-bd">
+          <input type="hidden" id="c-id" />
+          <div class="field">
+            <label class="label" for="c-name"
+              >Nome <span class="req">*</span></label
             >
             <input
-              class="form-input"
+              class="input"
               type="text"
-              id="customer-name"
+              id="c-name"
               placeholder="Es. Mario Rossi"
+              autocomplete="off"
             />
           </div>
-          <div class="form-group">
-            <label class="form-label" for="customer-email"
-              >Email <span class="required">*</span></label
+          <div class="field">
+            <label class="label" for="c-email"
+              >Email <span class="req">*</span></label
             >
             <input
-              class="form-input"
+              class="input"
               type="email"
-              id="customer-email"
-              placeholder="Es. mario@esempio.it"
+              id="c-email"
+              placeholder="mario@esempio.it"
+              autocomplete="off"
             />
           </div>
         </div>
-        <div class="modal-footer">
-          <button class="btn btn-ghost" onclick="closeModal('customer-modal')">
+        <div class="modal-ft">
+          <button class="btn btn-ghost" onclick="closeModal('modal-customer')">
             Annulla
           </button>
-          <button class="btn btn-primary" onclick="saveCustomer()">
-            <span id="customer-save-label">Salva Cliente</span>
+          <button
+            class="btn btn-primary"
+            id="c-save-btn"
+            onclick="saveCustomer()"
+          >
+            Salva
           </button>
         </div>
       </div>
     </div>
 
-    <!-- Product Modal -->
-    <div class="modal-overlay hidden" id="product-modal">
-      <div class="modal" role="dialog" aria-modal="true">
-        <div class="modal-header">
-          <h2 class="modal-title" id="product-modal-title">Nuovo Prodotto</h2>
-          <button class="modal-close" onclick="closeModal('product-modal')">
+    <div class="overlay hidden" id="modal-product">
+      <div
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-product-title"
+      >
+        <div class="modal-hd">
+          <h2 class="modal-title" id="modal-product-title">Nuovo Prodotto</h2>
+          <button
+            class="modal-x"
+            onclick="closeModal('modal-product')"
+            aria-label="Chiudi"
+          >
             <svg
               width="18"
               height="18"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
+              stroke-width="2.5"
             >
               <line x1="18" y1="6" x2="6" y2="18" />
               <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
           </button>
         </div>
-        <div class="modal-body">
-          <input type="hidden" id="product-id" />
-          <div class="form-group">
-            <label class="form-label" for="product-name"
-              >Nome <span class="required">*</span></label
+        <div class="modal-bd">
+          <input type="hidden" id="p-id" />
+          <div class="field">
+            <label class="label" for="p-name"
+              >Nome <span class="req">*</span></label
             >
             <input
-              class="form-input"
+              class="input"
               type="text"
-              id="product-name"
+              id="p-name"
               placeholder="Es. Tastiera meccanica"
+              autocomplete="off"
             />
           </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label" for="product-price"
-                >Prezzo (€) <span class="required">*</span></label
+          <div class="field-row">
+            <div class="field">
+              <label class="label" for="p-price"
+                >Prezzo (€) <span class="req">*</span></label
               >
               <input
-                class="form-input"
+                class="input"
                 type="number"
-                id="product-price"
+                id="p-price"
                 placeholder="0.00"
                 min="0"
                 step="0.01"
               />
             </div>
-            <div class="form-group">
-              <label class="form-label" for="product-stock"
-                >Stock <span class="required">*</span></label
+            <div class="field">
+              <label class="label" for="p-stock"
+                >Stock <span class="req">*</span></label
               >
               <input
-                class="form-input"
+                class="input"
                 type="number"
-                id="product-stock"
+                id="p-stock"
                 placeholder="0"
                 min="0"
               />
             </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button class="btn btn-ghost" onclick="closeModal('product-modal')">
+        <div class="modal-ft">
+          <button class="btn btn-ghost" onclick="closeModal('modal-product')">
             Annulla
           </button>
-          <button class="btn btn-primary" onclick="saveProduct()">
-            <span id="product-save-label">Salva Prodotto</span>
+          <button
+            class="btn btn-primary"
+            id="p-save-btn"
+            onclick="saveProduct()"
+          >
+            Salva
           </button>
         </div>
       </div>
     </div>
 
-    <!-- Order Modal -->
-    <div class="modal-overlay hidden" id="order-modal">
-      <div class="modal modal-lg" role="dialog" aria-modal="true">
-        <div class="modal-header">
-          <h2 class="modal-title" id="order-modal-title">Nuovo Ordine</h2>
-          <button class="modal-close" onclick="closeModal('order-modal')">
+    <div class="overlay hidden" id="modal-order">
+      <div
+        class="modal modal-wide"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-order-title"
+      >
+        <div class="modal-hd">
+          <h2 class="modal-title" id="modal-order-title">Nuovo Ordine</h2>
+          <button
+            class="modal-x"
+            onclick="closeModal('modal-order')"
+            aria-label="Chiudi"
+          >
             <svg
               width="18"
               height="18"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
+              stroke-width="2.5"
             >
               <line x1="18" y1="6" x2="6" y2="18" />
               <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
           </button>
         </div>
-        <div class="modal-body">
-          <input type="hidden" id="order-id" />
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label" for="order-customer"
-                >Cliente <span class="required">*</span></label
+        <div class="modal-bd">
+          <input type="hidden" id="o-id" />
+          <div class="field-row">
+            <div class="field">
+              <label class="label" for="o-customer"
+                >Cliente <span class="req">*</span></label
               >
-              <select class="form-input" id="order-customer">
-                <option value="">Seleziona un cliente...</option>
+              <select class="input" id="o-customer">
+                <option value="">Seleziona…</option>
               </select>
             </div>
-            <div class="form-group">
-              <label class="form-label" for="order-status">Stato</label>
-              <select class="form-input" id="order-status">
+            <div class="field">
+              <label class="label" for="o-status">Stato</label>
+              <select class="input" id="o-status">
                 <option value="pending">In attesa</option>
                 <option value="processing">In lavorazione</option>
                 <option value="completed">Completato</option>
@@ -584,23 +647,17 @@
               </select>
             </div>
           </div>
-
-          <div class="form-group">
-            <label class="form-label"
-              >Prodotti <span class="required">*</span></label
-            >
-            <div class="product-picker" id="product-picker"></div>
+          <div class="field">
+            <label class="label">Prodotti <span class="req">*</span></label>
+            <div class="picker" id="o-picker"></div>
           </div>
-
-          <div class="order-summary">
-            <span class="order-summary-label">Totale stimato</span>
-            <span class="order-total-amount" id="order-total-display"
-              >€ 0.00</span
-            >
+          <div class="order-total-bar">
+            <span class="order-total-label">Totale stimato</span>
+            <span class="order-total-val" id="o-total">€ 0,00</span>
           </div>
         </div>
-        <div class="modal-footer">
-          <button class="btn btn-ghost" onclick="closeModal('order-modal')">
+        <div class="modal-ft">
+          <button class="btn btn-ghost" onclick="closeModal('modal-order')">
             Annulla
           </button>
           <button class="btn btn-primary" onclick="saveOrder()">
@@ -610,14 +667,14 @@
       </div>
     </div>
 
-    <!-- Order Detail Modal -->
-    <div class="modal-overlay hidden" id="order-detail-modal">
-      <div class="modal modal-lg" role="dialog" aria-modal="true">
-        <div class="modal-header">
+    <div class="overlay hidden" id="modal-order-detail">
+      <div class="modal modal-wide" role="dialog" aria-modal="true">
+        <div class="modal-hd">
           <h2 class="modal-title">Dettaglio Ordine</h2>
           <button
-            class="modal-close"
-            onclick="closeModal('order-detail-modal')"
+            class="modal-x"
+            onclick="closeModal('modal-order-detail')"
+            aria-label="Chiudi"
           >
             <svg
               width="18"
@@ -625,18 +682,18 @@
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
+              stroke-width="2.5"
             >
               <line x1="18" y1="6" x2="6" y2="18" />
               <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
           </button>
         </div>
-        <div class="modal-body" id="order-detail-content"></div>
-        <div class="modal-footer">
+        <div class="modal-bd" id="order-detail-body"></div>
+        <div class="modal-ft">
           <button
             class="btn btn-ghost"
-            onclick="closeModal('order-detail-modal')"
+            onclick="closeModal('modal-order-detail')"
           >
             Chiudi
           </button>
@@ -644,36 +701,29 @@
       </div>
     </div>
 
-    <!-- Confirm Delete Modal -->
-    <div class="modal-overlay hidden" id="confirm-modal">
+    <div class="overlay hidden" id="modal-confirm">
       <div class="modal modal-sm" role="dialog" aria-modal="true">
-        <div class="modal-header">
+        <div class="modal-hd">
           <h2 class="modal-title">Conferma eliminazione</h2>
         </div>
-        <div class="modal-body">
-          <p class="confirm-text" id="confirm-text">
-            Sei sicuro di voler eliminare questo elemento?
-          </p>
-          <p class="confirm-sub">Questa azione è irreversibile.</p>
+        <div class="modal-bd">
+          <p class="confirm-msg" id="confirm-msg">Eliminare questo elemento?</p>
+          <p class="confirm-sub">L'operazione non può essere annullata.</p>
         </div>
-        <div class="modal-footer">
-          <button class="btn btn-ghost" onclick="closeModal('confirm-modal')">
+        <div class="modal-ft">
+          <button class="btn btn-ghost" onclick="closeModal('modal-confirm')">
             Annulla
           </button>
-          <button class="btn btn-danger" id="confirm-delete-btn">
-            Elimina
-          </button>
+          <button class="btn btn-danger" id="confirm-ok">Elimina</button>
         </div>
       </div>
     </div>
 
-    <!-- Toast container -->
-    <div class="toast-container" id="toast-container"></div>
+    <div class="toast-stack" id="toast-stack"></div>
 
-    <!-- Mobile sidebar overlay -->
     <div
-      class="sidebar-overlay hidden"
-      id="sidebar-overlay"
+      class="sb-overlay hidden"
+      id="sb-overlay"
       onclick="toggleSidebar()"
     ></div>
 
