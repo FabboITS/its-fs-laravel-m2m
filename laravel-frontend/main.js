@@ -612,11 +612,9 @@ async function saveOrder() {
 
   try {
     if (id) {
-      // Modifica ordine esistente
       await apiRequest(`${HOST}/api/orders/${id}`, 'PUT', payload);
       toast('Ordine aggiornato', 'ok');
     } else {
-      // Crea nuovo ordine
       await apiRequest(`${HOST}/api/orders`, 'POST', payload);
       toast('Ordine creato', 'ok');
     }
