@@ -273,6 +273,9 @@ function renderOrders(rows) {
             <button class="btn-act view" onclick="viewOrder(${o.id})" title="Dettaglio">
               ${iconEye}
             </button>
+            <button class="btn-act edit" onclick="editOrder(${o.id})" title="Modifica">
+              ${iconEdit}
+            </button>
             <button class="btn-act del" onclick="deleteOrder(${o.id})" title="Elimina">
               ${iconTrash}
             </button>
@@ -482,25 +485,41 @@ function deleteProduct(id, name) {
   });
 }
 
-async function openOrderForm() {
+async function openOrderForm(order = null) {
   // Carica dipendenze se vuote
   if (!_customers.length) await loadCustomers();
   if (!_products.length) await loadProducts();
 
-  // Reset campi
-  document.getElementById('o-id').value = '';
-  document.getElementById('o-status').value = 'pending';
-  document.getElementById('modal-order-title').textContent = 'Nuovo Ordine';
+  // Reset o popola campi
+  document.getElementById('o-id').value = order?.id ?? '';
+  document.getElementById('o-status').value = order?.status ?? 'pending';
+  document.getElementById('modal-order-title').textContent = order
+    ? 'Modifica Ordine'
+    : 'Nuovo Ordine';
+
+  document.getElementById('o-save-btn').textContent = order
+    ? 'Aggiorna'
+    : 'Salva Ordine';
 
   const sel = document.getElementById('o-customer');
   sel.innerHTML =
     '<option value="">Seleziona…</option>' +
     _customers
-      .map((c) => `<option value="${c.id}">${esc(c.name)}</option>`)
+      .map(
+        (c) =>
+          `<option value="${c.id}"${order && order.customer_id === c.id ? ' selected' : ''}>${esc(c.name)}</option>`,
+      )
       .join('');
 
-  buildPicker([]);
+  if (order) sel.value = order.customer_id;
+
+  buildPicker(order?.products ?? []);
   openModal('modal-order');
+}
+
+function editOrder(id) {
+  const o = _orders.find((x) => x.id === id);
+  if (o) openOrderForm(o);
 }
 
 function buildPicker(selected = []) {
@@ -558,6 +577,7 @@ function calcTotal() {
 }
 
 async function saveOrder() {
+  const id = document.getElementById('o-id').value;
   const customerId = document.getElementById('o-customer').value;
   const status = document.getElementById('o-status').value;
 
@@ -591,12 +611,24 @@ async function saveOrder() {
   };
 
   try {
-    await apiRequest(`${HOST}/api/orders`, 'POST', payload);
-    toast('Ordine creato', 'ok');
+    if (id) {
+      // Modifica ordine esistente
+      await apiRequest(`${HOST}/api/orders/${id}`, 'PUT', payload);
+      toast('Ordine aggiornato', 'ok');
+    } else {
+      // Crea nuovo ordine
+      await apiRequest(`${HOST}/api/orders`, 'POST', payload);
+      toast('Ordine creato', 'ok');
+    }
     closeModal('modal-order');
     await loadOrders();
   } catch {
-    toast("Errore nella creazione dell'ordine", 'err');
+    toast(
+      id
+        ? "Errore nell'aggiornamento dell'ordine"
+        : "Errore nella creazione dell'ordine",
+      'err',
+    );
   }
 }
 

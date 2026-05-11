@@ -17,35 +17,60 @@ class OrdersController extends Controller
         $validate = $request->validate([
             'customer_id' => 'required|exists:customers,id',
             'total_amount' => 'required|numeric',
-            'status' => 'required'
+            'status' => 'required|string',
+            'products' => 'required|array',
+            'products.*.product_id' => 'required|exists:products,id',
+            'products.*.quantity' => 'required|integer|min:1',
         ]);
 
-        $orders = Orders::create($validate);
+        $order = Orders::create([
+            'customer_id' => $validate['customer_id'],
+            'total_amount' => $validate['total_amount'],
+            'status' => $validate['status'],
+        ]);
 
-        return response()->json($orders, 201);
+        foreach ($validate['products'] as $product) {
+            $order->products()->attach($product['product_id'], ['quantity' => $product['quantity']]);
+        }
+
+        return response()->json($order->load('products', 'customer'), 201);
     }
 
-    public function show(Orders $orders)
+    public function show(Orders $order)
     {
-        return Orders::with('products', 'customer')->findOrFail($orders->id);
+        return Orders::with('products', 'customer')->findOrFail($order->id);
     }
 
-    public function update(Request $request, Orders $orders)
+    public function update(Request $request, Orders $order)
     {
         $validate = $request->validate([
-            'customer_id' => 'exists:customers,id',
-            'total_amount' => 'numeric',
-            'status' => ''
+            'customer_id' => 'sometimes|exists:customers,id',
+            'total_amount' => 'sometimes|numeric',
+            'status' => 'sometimes|string',
+            'products' => 'sometimes|array',
+            'products.*.product_id' => 'required_with:products|exists:products,id',
+            'products.*.quantity' => 'required_with:products|integer|min:1',
         ]);
 
-        $orders->update($validate);
+        $order->update([
+            'customer_id' => $validate['customer_id'] ?? $order->customer_id,
+            'total_amount' => $validate['total_amount'] ?? $order->total_amount,
+            'status' => $validate['status'] ?? $order->status,
+        ]);
 
-        return response()->json($orders);
+        if (isset($validate['products'])) {
+            $order->products()->detach();
+            foreach ($validate['products'] as $product) {
+                $order->products()->attach($product['product_id'], ['quantity' => $product['quantity']]);
+            }
+        }
+
+        return response()->json($order->load('products', 'customer'));
     }
 
-    public function destroy(Orders $orders)
+    public function destroy(Orders $order)
     {
-        $orders->delete();
-        return response()->json(['message' => 'Order deleted successfully', 204]);
+        $order->delete();
+        return response()->json(['message' => 'Order deleted successfully'], 204);
     }
 }
