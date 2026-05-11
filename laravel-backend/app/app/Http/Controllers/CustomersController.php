@@ -25,21 +25,21 @@ class CustomersController extends Controller
         return response()->json($customers, 201);
     }
 
-    public function show(Customers $customers)
+    public function show(Customers $customer)
     {
-        return $customers->load(['orders', 'products']);
+        return $customer->load(['orders', 'products']);
     }
 
-    public function update(Request $request, Customers $customers)
+    public function update(Request $request, Customers $customer)
     {
         $validate = $request->validate([
-            'email' => ['sometimes', 'required', 'email'],
-            'name' => ['sometimes', 'required', 'string', 'max:255'],
+            'email' => ['required', 'email', Rule::unique('customers')->ignore($customer->id)],
+            'name' => ['required', 'string', 'max:255'],
         ]);
 
-        $customers->update($validate);
+        $customer->update($validate);
 
-        return response()->json($customers);
+        return response()->json($customer);
     }
 
     public function destroy(Customers $customer)

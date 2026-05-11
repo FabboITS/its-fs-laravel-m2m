@@ -25,22 +25,22 @@ class ProductsController extends Controller
         return response()->json($product, 201);
     }
 
-    public function show(Products $products)
+    public function show(Products $product)
     {
-        return Products::findOrFail($products->id);
+        return Products::findOrFail($product->id);
     }
 
-    public function update(Request $request, Products $products)
+    public function update(Request $request, Products $product)
     {
         $validate = $request->validate([
-            'name' => ['string'],
-            'price' => ['integer'],
-            'stock' => ['integer'],
+            'name' => ['required', 'string'],
+            'price' => ['required', 'integer'],
+            'stock' => ['required', 'integer'],
         ]);
 
-        $products->update($validate);
+        $product->update($validate);
 
-        return response()->json($products);
+        return response()->json($product);
     }
 
     public function destroy(Products $product)
