@@ -33,8 +33,8 @@ class CustomersController extends Controller
     public function update(Request $request, Customers $customers)
     {
         $validate = $request->validate([
-            'email' => ['required', 'email', Rule::unique('customers')->ignore($customers->id)],
-            'name' => 'required',
+            'email' => ['sometimes', 'required', 'email'],
+            'name' => ['sometimes', 'required', 'string', 'max:255'],
         ]);
 
         $customers->update($validate);
